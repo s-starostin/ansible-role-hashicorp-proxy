@@ -1,7 +1,7 @@
 ---
 # Mirroring
 hp_user: hashiproxy
-hp_install_dir: /opt/hashiproxy
+hp_home_dir: /opt/hashiproxy
 hp_oncalendar: 02:00
 
 hp_source_host: https://hc-mirror.express42.net/
