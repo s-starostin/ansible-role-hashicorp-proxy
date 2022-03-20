@@ -11,4 +11,4 @@ directory: {{ hp_fs_directory }}
 providers_subpath: {{ hp_fs_providers_subpath }}
 
 routes:
-  {{ hp_fs_routes | to_nice_yaml | indent(2, true) }}
+{{ hp_fs_routes | to_nice_yaml | indent(2, true) }}
