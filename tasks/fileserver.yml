@@ -12,12 +12,12 @@
   become_user: "{{ hp_user }}"
   ansible.builtin.git:
     repo: "{{ hp_fs_repo }}"
-    dest: "{{ hp_install_dir }}"
+    dest: "{{ hp_fs_install_dir }}"
 
 - name: Ensure fileserver.py permissions
   become_user: "{{ hp_user }}"
   file:
-    path: "{{ hp_install_dir }}/fileserver.py"
+    path: "{{ hp_fs_install_dir }}/fileserver.py"
     mode: "0755"
     state: file
 
@@ -25,7 +25,7 @@
   become_user: "{{ hp_user }}"
   template:
     src: fileserver-config.yaml.j2
-    dest: "{{ hp_install_dir }}/config.yaml"
+    dest: "{{ hp_fs_install_dir }}/config.yaml"
     mode: '0644'
 
 - name: Copy service
