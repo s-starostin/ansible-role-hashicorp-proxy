@@ -3,7 +3,6 @@
 - name: Ensure hashiproxy user
   user:
     name: "{{ hp_user }}"
-    group: "{{ hp_user }}"
     home: "{{ hp_install_dir }}"
     shell: "/bin/bash"
     system: true
