@@ -9,7 +9,6 @@ hp_mirror_host: https://repo.platform.tatar.ru/repository/hashicorp/
 hp_mirror_username: ''
 hp_mirror_password: ''
 hp_tmp_dir: /tmp/mirror
-hp_hashicorp_proxy_config_file: /home/s-starostin/hashicorp-proxy/config.yaml
 
 # Fileserver configuration
 hp_fs_repo: https://github.com/s-starostin/hashicorp-proxy.git

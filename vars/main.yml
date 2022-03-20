@@ -1,3 +1,4 @@
 ---
 hp_fs_install_dir: "{{ hp_home_dir }}/fileserver"
 hp_fs_mirror_dir: "{{ hp_fs_install_dir }}/files"
+hp_hashicorp_proxy_config_file: "{{ hp_fs_install_dir }}/config.yaml"

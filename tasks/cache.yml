@@ -3,7 +3,7 @@
 - name: Copy utility
   template:
     src: crontask-rebuild-file-cache.sh.j2
-    dest: "{{ hp_home_dir }}/crontask-rebuild-file-cache.sh"
+    dest:"{{ hp_home_dir }}/crontask-rebuild-file-cache.sh"
     mode: '0755'
 
 - name: Copy services
