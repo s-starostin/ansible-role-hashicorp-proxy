@@ -1,7 +1,6 @@
 ---
 
 - name: Copy services
-  become: True
   template:
     src: "{{ item }}"
     dest: /etc/systemd/system/{{ item | basename | regex_replace('\.j2$', '') }}

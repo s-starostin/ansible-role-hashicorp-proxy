@@ -4,7 +4,6 @@
   args:
     apply:
       become: True
-      become_user: "{{ hp_user }}"
   tags:
     - fileserver
 
@@ -13,7 +12,6 @@
   args:
     apply:
       become: True
-      become_user: "{{ hp_user }}"
   tags:
     - cache
 
