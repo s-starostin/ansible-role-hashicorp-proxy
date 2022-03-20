@@ -11,8 +11,8 @@
 - name: Checkout fileserver source from git repo
   become_user: "{{ hp_user }}"
   ansible.builtin.git:
-    repo: "{{ hp_install_dir }}"
-    dest: "{{ hp_fs_repo }}"
+    repo: "{{ hp_fs_repo }}"
+    dest: "{{ hp_install_dir }}"
 
 - name: Ensure fileserver.py permissions
   become_user: "{{ hp_user }}"
