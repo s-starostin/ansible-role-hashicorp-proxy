@@ -1,0 +1,9 @@
+[Unit]
+Description=Hashicorp-proxy rebuild file cache timer
+
+[Timer]
+OnBootSec=5min
+OnCalendar={{ hp_oncalendar }}
+
+[Install]
+WantedBy=timers.target

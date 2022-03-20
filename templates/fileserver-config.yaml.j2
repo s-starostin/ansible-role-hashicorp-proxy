@@ -1,0 +1,14 @@
+#{{ ansible_managed }}
+ssl_enabled: {{ hp_fs_ssl_enabled }}
+ssl_check_hostname: {{ hp_fs_ssl_check_hostname }}
+ssl_server_cert: {{ hp_fs_ssl_server_cert }}
+ssl_server_cert_key: {{ hp_fs_ssl_server_cert_key }}
+
+host: {{ hp_fs_host }}
+port: {{ hp_fs_port }}
+
+directory: {{ hp_fs_directory }}
+providers_subpath: {{ hp_fs_providers_subpath }}
+
+routes:
+  {{ hp_fs_routes | to_nice_yaml | indent(2, true) }}

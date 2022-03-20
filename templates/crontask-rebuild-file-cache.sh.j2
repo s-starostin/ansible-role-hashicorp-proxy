@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+source_host="$SOURCE_HOST"
+mirror_host="$MIRROR_HOST"
+mirror_username="$MIRROR_USERNAME"
+mirror_password="$MIRROR_PASSWORD"
+tmp_dir="$TMP_DIR"
+hashicorp_proxy_config_file="$HASHICORP_PROXY_CONFIG_FILE"
+fileserver_mirror_dir="$FILESERVER_MIRROR_DIR"
+
+mkdir -p "$tmp_dir"
+echo "Step 1. Making repository cache."
+echo "Getting links from the source..."
+truncate -s0 "$tmp_dir/wgetlog.txt"
+wget -P "$tmp_dir" --spider --recursive --no-verbose "$source_host" 2>&1 | tee "$tmp_dir/wgetlog.txt"
+echo "Filtering resource links..."
+sed -n 's|^.\+ URL:[ ]*http[s]*:\/\/[^\/]\+\/\([^ ]\+\) .\+|\1|p' "$tmp_dir/wgetlog.txt" | sed 's|&|\&amp;|' | grep -P '(?<!\/|robots\.txt)$' | tee "$tmp_dir/temp.txt"
+
+search=''
+c=0
+echo "Limiting results up to 16 last versions..."
+truncate -s0 "$tmp_dir/results.txt"
+for i in $(sed -n "s|^\([^\/]\+\)\/\([^\/]\+\).\+|\1\|\2|p" temp.txt | uniq | sort -Vr)
+do
+  IFS='|' read -r -a a <<< "$i"
+  if [ "$search" != "${a[0]}" ]; then
+    c=16
+    search="${a[0]}"
+  fi
+
+  if [ "$c" -gt 0 ]; then
+    grep --color=never "${a[0]}/${a[1]}" "$tmp_dir/temp.txt" | sed -n "s|^\(.\+\)|$mirror_host\1|p" >> "$tmp_dir/results.txt"
+    ((c--))
+  fi
+done
+rm "$tmp_dir/temp.txt"
+
+echo "Caching..."
+wget -qO- --user=$mirror_username --password=$mirror_password -i "$tmp_dir/results.txt" -t 1 &> /dev/null
+echo "Finished"
+
+echo "Step 2. Building fileserver docroot."
+echo "Getting required archives..."
+for match in $(sed -n 's|^\s\+\([^:]\+\):\s\(.\+\)|\2|p' "$hashicorp_proxy_config_file")
+do
+  for arch in $(grep --color=never $match "$tmp_dir/results.txt")
+  do
+    echo $arch
+    wget -q --user=$mirror_username --password=$mirror_password -x -P $fileserver_mirror_dir $arch
+  done
+done

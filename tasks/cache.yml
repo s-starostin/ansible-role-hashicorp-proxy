@@ -1,0 +1,28 @@
+---
+
+- name: Copy services
+  template:
+    src: "{{ item }}"
+    dest: /etc/systemd/system/{{ item | basename | regex_replace('\.j2$', '') }}
+    owner: root
+    group: root
+    mode: '0664'
+  loop:
+    - rebuild-file-cache.service.j2
+    - rebuild-file-cache.timer.j2
+  notify:
+    - restart rebuild file cache timer
+
+- name: Add firewalld rule for jira
+  ansible.posix.firewalld:
+    port: "8080/tcp"
+    permanent: true
+    state: enabled
+  notify: reload firewalld
+
+- name: Configuring service
+  systemd:
+    name: "{{ jira_service_name }}"
+    state: "{{ jira_service_state }}"
+    enabled: "{{ jira_service_enabled }}"
+    daemon_reload: yes

@@ -1,0 +1,20 @@
+---
+- name: Ensure firewalld service reloaded
+  systemd:
+    name: firewalld
+    state: reloaded
+  listen: reload firewalld
+
+- name: Ensure rebuild file cache timer restarted
+  systemd:
+    name: rebuild-file-cache.timer
+    state: restarted
+    enabled: true
+  listen: restart rebuild file cache timer
+
+- name: Ensure hashicorp-proxy service restarted
+  systemd:
+    name: hashicorp-proxy.service
+    state: restarted
+    enabled: true
+  listen: restart hashicorp-proxy service

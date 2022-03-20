@@ -1,0 +1,37 @@
+---
+
+- name: Ensure hashiproxy user
+  user:
+    name: "{{ hp_user }}"
+    group: "{{ hp_user }}"
+    home: "{{ hp_install_dir }}"
+    shell: "/bin/bash"
+    system: true
+    state: "present"
+
+- name: Checkout fileserver source from git repo
+  ansible.builtin.git:
+    repo: "{{ hp_install_dir }}"
+    dest: "{{ hp_fs_repo }}"
+
+- name: Ensure fileserver.py permissions
+  file:
+    path: "{{ hp_install_dir }}/fileserver.py"
+    mode: "0755"
+    state: file
+
+- name: Update config.yaml
+  template:
+    src: fileserver-config.yaml.j2
+    dest: "{{ hp_install_dir }}/config.yaml"
+    mode: '0644'
+
+- name: Copy service
+  template:
+    src: hashicorp-proxy.service.j2
+    dest: /etc/systemd/system/hashicorp-proxy.service
+    owner: root
+    group: root
+    mode: '0664'
+  notify:
+    - restart hashicorp-proxy service

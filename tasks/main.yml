@@ -1,0 +1,21 @@
+---
+- name: Setup fileserver
+  include: fileserver.yml
+  args:
+    apply:
+      become: True
+      become_user: "{{ hp_user }}"
+  tags:
+    - fileserver
+
+- name: Rebuild file cache
+  include: cache.yml
+  args:
+    apply:
+      become: True
+      become_user: "{{ hp_user }}"
+  tags:
+    - cache
+
+- name: Force all notified handlers to run at this point
+  meta: flush_handlers

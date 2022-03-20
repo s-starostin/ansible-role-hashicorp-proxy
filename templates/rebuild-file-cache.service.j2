@@ -1,0 +1,15 @@
+[Unit]
+Description=Hashicorp-proxy rebuild file cache
+
+[Service]
+Type=oneshot
+User={{ hp_user }}
+
+Environment="SOURCE_HOST={{ hp_source_host }}"
+Environment="MIRROR_HOST={{ hp_mirror_host }}"
+Environment="MIRROR_USERNAME={{ hp_mirror_username }}"
+Environment="MIRROR_PASSWORD={{ hp_mirror_password }}"
+Environment="TMP_DIR={{ hp_tmp_dir }}"
+Environment="HASHICORP_PROXY_CONFIG_FILE={{ hp_hashicorp_proxy_config_file }}"
+Environment="FILESERVER_MIRROR_DIR={{ hp_fs_mirror_dir }}"
+ExecStart={{ hp_install_dir }}/crontask-rebuild-file-cache.sh
