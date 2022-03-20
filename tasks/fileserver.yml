@@ -29,6 +29,13 @@
     dest: "{{ hp_fs_install_dir }}/config.yaml"
     mode: '0644'
 
+- name: Ensure files directory
+  become_user: "{{ hp_user }}"
+  file:
+    path: "{{ hp_fs_mirror_dir }}"
+    mode: "0755"
+    state: directory
+
 - name: Copy service
   template:
     src: hashicorp-proxy.service.j2
