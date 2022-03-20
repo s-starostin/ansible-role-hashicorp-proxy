@@ -1,2 +1,2 @@
 ---
-hp_fs_mirror_dir: {{ hp_fs_install_dir }}/files
+hp_fs_mirror_dir: "{{ hp_fs_install_dir }}/files"

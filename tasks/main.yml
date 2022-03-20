@@ -1,6 +1,6 @@
 ---
 - name: Setup fileserver
-  include: fileserver.yml
+  include_tasks: fileserver.yml
   args:
     apply:
       become: True
@@ -9,7 +9,7 @@
     - fileserver
 
 - name: Rebuild file cache
-  include: cache.yml
+  include_tasks: cache.yml
   args:
     apply:
       become: True

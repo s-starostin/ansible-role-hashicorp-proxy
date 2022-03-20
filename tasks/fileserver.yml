@@ -1,6 +1,7 @@
 ---
 
 - name: Ensure hashiproxy user
+  become: True
   user:
     name: "{{ hp_user }}"
     group: "{{ hp_user }}"
@@ -27,6 +28,7 @@
     mode: '0644'
 
 - name: Copy service
+  become: True
   template:
     src: hashicorp-proxy.service.j2
     dest: /etc/systemd/system/hashicorp-proxy.service
