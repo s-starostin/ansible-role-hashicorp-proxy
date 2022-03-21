@@ -12,6 +12,7 @@ hp_tmp_dir: /tmp/mirror
 
 # Fileserver configuration
 hp_fs_repo: https://github.com/s-starostin/hashicorp-proxy.git
+hp_add_open_ext_port: False
 
 hp_fs_ssl_enabled: False
 hp_fs_ssl_check_hostname: False

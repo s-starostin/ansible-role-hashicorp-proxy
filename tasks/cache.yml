@@ -1,5 +1,4 @@
 ---
-
 - name: Copy utility
   template:
     src: crontask-rebuild-file-cache.sh.j2
@@ -18,3 +17,4 @@
     - rebuild-file-cache.timer.j2
   notify:
     - restart rebuild file cache timer
+    - restart rebuild file cache service

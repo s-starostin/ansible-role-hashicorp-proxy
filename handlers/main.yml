@@ -12,6 +12,13 @@
     enabled: true
   listen: restart rebuild file cache timer
 
+- name: Ensure rebuild file cache service restarted
+  systemd:
+    name: rebuild-file-cache.service
+    state: restarted
+    enabled: false
+  listen: restart rebuild file cache service
+
 - name: Ensure hashicorp-proxy service restarted
   systemd:
     name: hashicorp-proxy.service

@@ -1,11 +1,19 @@
 ---
+- name: Install necessary dependencies
+  dnf:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - git
+    - python3
 
 - name: Ensure hashiproxy user
   user:
     name: "{{ hp_user }}"
     home: "{{ hp_home_dir }}"
     shell: "/bin/bash"
-    system: true
+    system: True
     state: "present"
 
 - name: Checkout fileserver source from git repo
@@ -44,4 +52,12 @@
     group: root
     mode: '0664'
   notify:
-    - restart hashicorp-proxy service
+    - restart hashicorp-proxy service\
+
+- name: Add firewalld rule if needed
+  ansible.posix.firewalld:
+    port: "{{ hp_fs_port }}/tcp"
+    permanent: true
+    state: enabled
+  notify: reload firewalld
+  when: hp_add_open_ext_port
