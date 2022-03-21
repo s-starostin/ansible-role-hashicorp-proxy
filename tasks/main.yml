@@ -14,6 +14,3 @@
       become: True
   tags:
     - cache
-
-- name: Force all notified handlers to run at this point
-  meta: flush_handlers

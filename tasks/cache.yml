@@ -18,3 +18,6 @@
   notify:
     - restart rebuild file cache timer
     - restart rebuild file cache service
+
+- name: Force all notified handlers to run at this point
+  meta: flush_handlers

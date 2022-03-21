@@ -60,3 +60,6 @@
     state: enabled
   notify: reload firewalld
   when: hp_add_open_ext_port
+
+- name: Force all notified handlers to run at this point
+  meta: flush_handlers
