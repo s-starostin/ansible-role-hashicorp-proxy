@@ -10,6 +10,7 @@
     name: rebuild-file-cache.timer
     state: restarted
     enabled: true
+    daemon_reload: True
   listen: restart rebuild file cache timer
 
 - name: Ensure rebuild file cache service restarted
@@ -17,6 +18,7 @@
     name: rebuild-file-cache.service
     state: restarted
     enabled: false
+    daemon_reload: True
   listen: restart rebuild file cache service
 
 - name: Ensure hashicorp-proxy service restarted
@@ -24,4 +26,5 @@
     name: hashicorp-proxy.service
     state: restarted
     enabled: true
+    daemon_reload: True
   listen: restart hashicorp-proxy service
