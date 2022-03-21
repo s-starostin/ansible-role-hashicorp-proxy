@@ -51,7 +51,7 @@
     group: root
     mode: '0664'
   notify:
-    - restart hashicorp-proxy service\
+    - restart hashicorp-proxy service
 
 - name: Add firewalld rule if needed
   ansible.posix.firewalld:
